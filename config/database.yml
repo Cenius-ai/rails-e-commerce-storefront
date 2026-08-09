@@ -1,0 +1,40 @@
+# PostgreSQL is the primary database. When DATABASE_URL is set (e.g. by
+# the verification environment provisioning a local Postgres), it is used
+# directly.  Otherwise the app falls back to embedded SQLite so it still
+# boots on a bare clone with zero setup.
+#
+# DATABASE_URL format:
+#   postgresql://user:password@host:port/database_name
+
+default: &default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+<% if ENV['DATABASE_URL'] %>
+development:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
+test:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+<% else %>
+development:
+  <<: *default
+  adapter: sqlite3
+  database: storage/development.sqlite3
+
+test:
+  <<: *default
+  adapter: sqlite3
+  database: storage/test.sqlite3
+
+production:
+  <<: *default
+  adapter: sqlite3
+  database: storage/production.sqlite3
+<% end %>
