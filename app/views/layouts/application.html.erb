@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Market — Storefront" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% unless content_for(:bare_layout) %>
+    <!-- Left Rail Navigation -->
+    <nav class="app-nav">
+      <%= link_to products_path, class: "app-nav-brand" do %>
+        Market<span>.</span>
+      <% end %>
+
+      <div class="app-nav-section">
+        <div class="app-nav-label">Store</div>
+        <%= link_to products_path, class: "app-nav-link #{'active' if current_page?(products_path)}" do %>
+          <span class="nav-icon">&#9632;</span> Catalog
+        <% end %>
+        <%= link_to cart_path, class: "app-nav-link #{'active' if current_page?(cart_path)}" do %>
+          <span class="nav-icon">&#9737;</span> Cart
+          <% if cart_items_count > 0 %>
+            <span class="nav-badge"><%= cart_items_count %></span>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="app-nav-section">
+        <div class="app-nav-label">Admin</div>
+        <% if admin_logged_in? %>
+          <%= link_to admin_products_path, class: "app-nav-link #{'active' if request.path.start_with?('/admin/products')}" do %>
+            <span class="nav-icon">&#9881;</span> Products
+          <% end %>
+          <%= link_to admin_logout_path, data: { turbo_method: :delete }, class: "app-nav-link" do %>
+            <span class="nav-icon">&#8656;</span> Logout
+          <% end %>
+        <% else %>
+          <%= link_to admin_login_path, class: "app-nav-link #{'active' if current_page?(admin_login_path)}" do %>
+            <span class="nav-icon">&#128274;</span> Admin Login
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="app-nav-footer">
+        <div class="app-nav-link" style="font-size:0.78rem; color:var(--text-muted); pointer-events:none;">
+          Demo Store &mdash; v1.0
+        </div>
+      </div>
+    </nav>
+
+    <!-- Content Area -->
+    <main class="app-content">
+    <% end %>
+
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>"><%= message %></div>
+      <% end %>
+
+      <%= yield %>
+
+    <% unless content_for(:bare_layout) %>
+    </main>
+    <% end %>
+  </body>
+</html>

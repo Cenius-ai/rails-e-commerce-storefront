@@ -1,0 +1,44 @@
+<%= content_for :title, "#{@product.name} — Market" %>
+
+<div class="product-detail">
+  <div class="product-detail-image">
+    <% if @product.image_url.present? %>
+      <%= image_tag @product.image_url, alt: @product.name, onerror: "this.style.display='none';var d=document.createElement('div');d.style.color='#aaa';d.style.fontSize='0.9rem';d.textContent='No image';this.parentElement.appendChild(d)" %>
+    <% end %>
+  </div>
+
+  <div class="product-detail-info">
+    <div>
+      <% if @product.category %>
+        <div class="category-badge mb-sm"><%= @product.category.name %></div>
+      <% end %>
+      <h1><%= @product.name %></h1>
+    </div>
+
+    <div class="price-large"><%= number_to_currency(@product.price) %></div>
+
+    <p class="description"><%= @product.description %></p>
+
+    <div class="flex items-center gap-md">
+      <% if @product.stock > 0 %>
+        <span class="stock-badge stock-in"><%= @product.stock %> in stock</span>
+      <% elsif @product.stock > 0 %>
+        <span class="stock-badge stock-low">Only <%= @product.stock %> left</span>
+      <% else %>
+        <span class="stock-badge stock-out">Out of stock</span>
+      <% end %>
+    </div>
+
+    <div>
+      <%= button_to add_to_cart_path(@product), method: :post,
+            class: "btn btn-primary btn-lg",
+            disabled: @product.stock.zero? do %>
+        <%= @product.stock.zero? ? "Currently Unavailable" : "Add to Cart" %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= link_to "← Back to Catalog", products_path, class: "btn btn-outline btn-sm" %>
+    </div>
+  </div>
+</div>

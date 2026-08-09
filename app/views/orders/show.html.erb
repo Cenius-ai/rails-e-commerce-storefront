@@ -1,0 +1,55 @@
+<%= content_for :title, "Order ##{@order.id} — Market" %>
+
+<div class="order-confirmation">
+  <div style="text-align: center; margin-bottom: var(--space-xl);">
+    <div style="font-size: 3rem; margin-bottom: var(--space-sm);">&#10003;</div>
+    <h1>Order Confirmed</h1>
+    <p class="text-muted">Thank you, <strong><%= @order.name %></strong>! Your order has been placed.</p>
+    <div class="order-number mt-sm">Order #<%= @order.id %></div>
+  </div>
+
+  <div class="card mb-lg">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th class="text-right">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |item| %>
+          <tr>
+            <td><%= item.product&.name || "Unknown product" %></td>
+            <td class="mono"><%= number_to_currency(item.price) %></td>
+            <td class="mono"><%= item.quantity %></td>
+            <td class="mono text-right"><%= number_to_currency(item.subtotal) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right font-bold">Total</td>
+          <td class="mono text-right font-bold" style="font-size:1.1rem"><%= number_to_currency(@order.total) %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);" class="mb-lg">
+    <div>
+      <h4 class="mb-sm">Contact</h4>
+      <p class="text-muted"><%= @order.name %><br><%= @order.email %></p>
+    </div>
+    <div>
+      <h4 class="mb-sm">Status</h4>
+      <span class="stock-badge stock-in" style="font-size:0.85rem"><%= @order.status.humanize %></span>
+      <p class="text-muted mt-sm" style="font-size:0.8rem">Order placed on <%= l(@order.created_at, format: :long) %></p>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <%= link_to "Continue Shopping", products_path, class: "btn btn-primary" %>
+  </div>
+</div>

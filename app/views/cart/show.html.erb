@@ -1,0 +1,75 @@
+<%= content_for :title, "Shopping Cart — Market" %>
+
+<div class="page-header">
+  <div>
+    <h1>Shopping Cart</h1>
+    <p><%= pluralize(@cart_items.size, 'item') %> in your cart</p>
+  </div>
+  <% if @cart_items.any? %>
+    <%= link_to "Continue Shopping", products_path, class: "btn btn-outline" %>
+  <% end %>
+</div>
+
+<% if @cart_items.any? %>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th class="text-right">Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart_items.each do |item| %>
+          <tr>
+            <td>
+              <strong><%= link_to item[:product].name, product_path(item[:product]) %></strong>
+              <% if item[:product].category %>
+                <br><span class="text-muted" style="font-size:0.8rem"><%= item[:product].category.name %></span>
+              <% end %>
+            </td>
+            <td class="mono"><%= number_to_currency(item[:product].price) %></td>
+            <td>
+              <%= form_with url: update_cart_path(item[:product]), method: :patch, class: "flex items-center gap-sm", data: { turbo: false } do |f| %>
+                <%= f.number_field :quantity, value: item[:quantity], min: 1, max: item[:product].stock, class: "qty-input" %>
+                <%= f.submit "Update", class: "btn btn-sm btn-outline" %>
+              <% end %>
+            </td>
+            <td class="mono text-right"><%= number_to_currency(item[:subtotal]) %></td>
+            <td>
+              <%= button_to remove_from_cart_path(item[:product]), method: :delete,
+                    class: "btn btn-sm btn-danger btn-icon",
+                    form: { data: { turbo_confirm: "Remove #{item[:product].name}?" } } do %>
+                &times;
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right font-bold">Total</td>
+          <td class="mono text-right font-bold" style="font-size:1.1rem"><%= number_to_currency(@total) %></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="flex justify-between items-center mt-lg">
+    <%= link_to "← Continue Shopping", products_path, class: "btn btn-outline" %>
+    <%= link_to "Proceed to Checkout →", checkout_path, class: "btn btn-primary btn-lg" %>
+  </div>
+
+<% else %>
+  <div class="card empty-state">
+    <h3>Your cart is empty</h3>
+    <p>Browse our catalog and add items to get started.</p>
+    <div class="mt-md">
+      <%= link_to "Browse Products", products_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

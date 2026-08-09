@@ -1,0 +1,55 @@
+<%= content_for :title, "Catalog — Market" %>
+
+<div class="page-header">
+  <div>
+    <h1>Product Catalog</h1>
+    <p><%= @products.size %> products available</p>
+  </div>
+</div>
+
+<div class="product-grid">
+  <% @products.each do |product| %>
+    <div class="card card-interactive product-card">
+      <%= link_to product_path(product) do %>
+        <div class="card-img">
+          <% if product.image_url.present? %>
+            <%= image_tag product.image_url, alt: product.name, onerror: "this.style.display='none'" %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="card-body">
+        <% if product.category %>
+          <div class="category-badge mb-sm"><%= product.category.name %></div>
+        <% end %>
+        <%= link_to product_path(product), class: "card-title" do %>
+          <%= product.name %>
+        <% end %>
+        <div class="flex items-center justify-between mt-sm">
+          <span class="price"><%= number_to_currency(product.price) %></span>
+          <% if product.stock > 5 %>
+            <span class="stock-badge stock-in">In Stock</span>
+          <% elsif product.stock > 0 %>
+            <span class="stock-badge stock-low"><%= product.stock %> left</span>
+          <% else %>
+            <span class="stock-badge stock-out">Sold Out</span>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-footer">
+        <%= button_to add_to_cart_path(product), method: :post,
+              class: "btn btn-primary btn-sm w-full",
+              disabled: product.stock.zero?,
+              form: { style: "width: 100%;" } do %>
+          <%= product.stock.zero? ? "Sold Out" : "Add to Cart" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @products.empty? %>
+  <div class="empty-state">
+    <h3>No products yet</h3>
+    <p>Check back soon — we're stocking the shelves.</p>
+  </div>
+<% end %>

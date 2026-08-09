@@ -1,0 +1,66 @@
+<%= content_for :title, "Checkout — Market" %>
+
+<div class="page-header">
+  <div>
+    <h1>Checkout</h1>
+    <p>Review your order and provide contact details</p>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 380px; gap: var(--space-xl); align-items: start;">
+  <div>
+    <div class="card" style="padding: var(--space-lg);">
+      <h3 class="mb-md">Contact Information</h3>
+      <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+        <% if @order.errors.any? %>
+          <div class="alert alert-alert">
+            Please fix the errors below.
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :name, "Full Name", class: "form-label" %>
+          <%= f.text_field :name, class: "form-input", placeholder: "Jane Smith", required: true %>
+          <% if @order.errors[:name].any? %>
+            <div class="form-error"><%= @order.errors[:name].join(", ") %></div>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "Email Address", class: "form-label" %>
+          <%= f.email_field :email, class: "form-input", placeholder: "jane@example.com", required: true %>
+          <% if @order.errors[:email].any? %>
+            <div class="form-error"><%= @order.errors[:email].join(", ") %></div>
+          <% end %>
+          <div class="form-hint">We'll send your order confirmation here.</div>
+        </div>
+
+        <div class="mt-lg">
+          <%= f.submit "Place Order", class: "btn btn-primary btn-lg w-full" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-md">
+      <%= link_to "← Back to Cart", cart_path, class: "btn btn-outline btn-sm" %>
+    </div>
+  </div>
+
+  <div class="checkout-summary">
+    <h3 class="mb-md">Order Summary</h3>
+    <% @cart_items.each do |item| %>
+      <div class="total-row">
+        <span><%= item[:product].name %> &times; <%= item[:quantity] %></span>
+        <span class="mono"><%= number_to_currency(item[:subtotal]) %></span>
+      </div>
+    <% end %>
+    <div class="total-row grand">
+      <span>Total</span>
+      <span><%= number_to_currency(@total) %></span>
+    </div>
+
+    <p class="text-muted mt-md" style="font-size: 0.8rem; line-height: 1.5;">
+      This is a demo checkout. No payment is collected. Your order will be recorded immediately.
+    </p>
+  </div>
+</div>

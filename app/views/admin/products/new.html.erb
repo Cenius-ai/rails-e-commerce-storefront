@@ -1,0 +1,12 @@
+<%= content_for :title, "New Product — Admin" %>
+
+<div class="page-header">
+  <div>
+    <h1>New Product</h1>
+    <p>Add a product to the catalog</p>
+  </div>
+</div>
+
+<div class="card" style="padding: var(--space-lg); max-width: 640px;">
+  <%= render "form", product: @product, categories: @categories %>
+</div>

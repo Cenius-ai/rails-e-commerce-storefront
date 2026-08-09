@@ -1,0 +1,48 @@
+<%= content_for :title, "Manage Products — Admin" %>
+
+<div class="page-header">
+  <div>
+    <h1>Products</h1>
+    <p>Manage your product catalog</p>
+  </div>
+  <%= link_to "New Product", new_admin_product_path, class: "btn btn-primary" %>
+</div>
+
+<div class="card">
+  <table class="data-table admin-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td>
+            <strong><%= product.name %></strong>
+          </td>
+          <td><%= product.category&.name || "—" %></td>
+          <td class="mono"><%= number_to_currency(product.price) %></td>
+          <td class="mono"><%= product.stock %></td>
+          <td class="actions">
+            <%= link_to "Edit", edit_admin_product_path(product), class: "btn btn-sm btn-outline" %>
+            <%= button_to "Delete", admin_product_path(product), method: :delete,
+                  class: "btn btn-sm btn-danger",
+                  form: { data: { turbo_confirm: "Delete #{product.name}?" } } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% if @products.empty? %>
+    <div class="empty-state">
+      <h3>No products</h3>
+      <p>Create your first product to get started.</p>
+    </div>
+  <% end %>
+</div>

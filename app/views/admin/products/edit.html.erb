@@ -1,0 +1,13 @@
+<%= content_for :title, "Edit #{@product.name} — Admin" %>
+
+<div class="page-header">
+  <div>
+    <h1>Edit Product</h1>
+    <p>Update &ldquo;<%= @product.name %>&rdquo;</p>
+  </div>
+  <%= link_to "Back to Products", admin_products_path, class: "btn btn-outline" %>
+</div>
+
+<div class="card" style="padding: var(--space-lg); max-width: 640px;">
+  <%= render "form", product: @product, categories: @categories %>
+</div>

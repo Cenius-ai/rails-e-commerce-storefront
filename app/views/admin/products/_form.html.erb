@@ -1,0 +1,51 @@
+<%= form_with model: [:admin, product], local: true, data: { turbo: false } do |f| %>
+  <% if product.errors.any? %>
+    <div class="alert alert-alert">
+      <strong><%= pluralize(product.errors.count, "error") %> prevented this product from being saved:</strong>
+      <ul style="margin: var(--space-xs) 0 0 18px;">
+        <% product.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, "Product Name", class: "form-label" %>
+    <%= f.text_field :name, class: "form-input", placeholder: "e.g. Wireless Headphones", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category_id, "Category", class: "form-label" %>
+    <%= f.collection_select :category_id, categories, :id, :name,
+          { include_blank: "Select a category" },
+          { class: "form-select" } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "Description", class: "form-label" %>
+    <%= f.text_area :description, class: "form-textarea", rows: 4, placeholder: "Describe the product..." %>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+    <div class="form-group">
+      <%= f.label :price, "Price ($)", class: "form-label" %>
+      <%= f.number_field :price, class: "form-input", step: 0.01, min: 0, placeholder: "29.99", required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :stock, "Stock", class: "form-label" %>
+      <%= f.number_field :stock, class: "form-input", min: 0, placeholder: "10", required: true %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image_url, "Image Path", class: "form-label" %>
+    <%= f.text_field :image_url, class: "form-input", placeholder: "/images/products/example.svg" %>
+    <div class="form-hint">Path to an image in the public/images/ directory.</div>
+  </div>
+
+  <div class="flex items-center gap-md mt-lg">
+    <%= f.submit product.new_record? ? "Create Product" : "Update Product", class: "btn btn-primary" %>
+    <%= link_to "Cancel", admin_products_path, class: "btn btn-outline" %>
+  </div>
+<% end %>
