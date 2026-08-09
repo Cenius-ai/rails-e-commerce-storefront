@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#f0ece4"/>
+  <g transform="translate(200,130)">
+    <rect x="-70" y="-45" width="140" height="90" rx="12" fill="#6b5b4f"/>
+    <rect x="-65" y="-40" width="130" height="80" rx="8" fill="#9b8b7f"/>
+    <rect x="-60" y="-35" width="120" height="70" rx="5" fill="#d4c9bc"/>
+    <circle cx="60" cy="-25" r="6" fill="#6b5b4f"/>
+    <rect x="55" y="-27" width="12" height="4" rx="2" fill="#6b5b4f"/>
+  </g>
+  <text x="200" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" fill="#555">Laptop Sleeve</text>
+</svg>
