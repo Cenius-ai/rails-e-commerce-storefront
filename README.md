@@ -1,6 +1,7 @@
 # Rails E-Commerce Storefront — Ruby on Rails e-commerce storefront reference implementation
 
-**Rails E-Commerce Storefront** is a free, open-source e-commerce storefront built with Ruby on Rails. A self-contained Ruby on Rails 7 e-commerce storefront with product catalog, shopping cart, checkout, and admin product management. Run it locally, deploy it as a self-hosted e-commerce storefront, or [remix it on cenius.ai](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront) to make it your own — the whole application (code, design, seeded demo data) ships in this repository under the Apache-2.0 license.
+Want to run your own e-commerce storefront without paying for SaaS? **Rails E-Commerce Storefront** is a free, Apache-2.0-licensed Ruby on Rails project that you can clone and self-host today. A self-contained Ruby on Rails 7 e-commerce storefront with product catalog, shopping cart, checkout, and admin product management. Every Rails E-Commerce Storefront feature — every screen, every seed record — is here. [Open Rails E-Commerce Storefront on cenius.ai](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront) to modify it without writing code.
+
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) ![Stack](https://img.shields.io/badge/Stack-Ruby%20on%20Rails-3b82f6) [![Built with cenius.ai](https://img.shields.io/badge/Built%20with-cenius.ai-8b5cf6)](https://cenius.ai)
 
@@ -16,11 +17,19 @@ _Local clone? See [Quick start](#quick-start) below. cenius.ai is the zero-setup
 
 ![Rails E-Commerce Storefront demo — e-commerce storefront built with Ruby on Rails](.github/media/hero_flagship.gif)
 
-▶ **[Watch the full demo video](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront)** — the complete walkthrough, playing on the project's cenius.ai page · [MP4 file](.github/media/demo.mp4)
+▶ **[See it in action](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront)** — full demo on the project page · [MP4](.github/media/demo.mp4)
 
 ## Screenshots
 
 <img src=".github/media/shot-1.png" width="32%" alt="Rails E-Commerce Storefront e-commerce storefront screenshot 1"/> <img src=".github/media/shot-2.png" width="32%" alt="Rails E-Commerce Storefront e-commerce storefront screenshot 2"/> <img src=".github/media/shot-3.png" width="32%" alt="Rails E-Commerce Storefront e-commerce storefront screenshot 3"/>
+
+## Quick start
+
+```bash
+./install.sh   # installs dependencies + seeds demo data
+```
+
+See [`INSTALL.md`](INSTALL.md) for full setup and usage instructions.
 
 ## Features
 
@@ -33,13 +42,9 @@ _Local clone? See [Quick start](#quick-start) below. cenius.ai is the zero-setup
 - Demo Data Seeding
 - Admin Authentication
 
-## Quick start
+## Architecture
 
-```bash
-./install.sh   # installs dependencies + seeds demo data
-```
-
-See [`INSTALL.md`](INSTALL.md) for full setup and usage instructions.
+No external services required: the entire e-commerce storefront runs from this Ruby on Rails repo (1,695 files). Top-level layout: `app/`, `bin/`, `config/`, `db/`, `lib/`, `log/`, `public/`, `storage/`. Kick off `./install.sh` to pull packages and seed the database, then the app is up. Step-by-step setup guide: [`INSTALL.md`](INSTALL.md).
 
 ## Usage guide
 
@@ -88,31 +93,27 @@ curl http://localhost:3000/products/1
 
 _Full guide: [`USAGE.md`](USAGE.md)_
 
-## Architecture
-
-Ruby on Rails application, delivered as a complete, runnable project (1695 files). Top-level layout: `app/`, `bin/`, `config/`, `db/`, `lib/`, `log/`, `public/`, `storage/`. `install.sh` provisions dependencies and seeds demo data, so the app boots with something to show. Setup details live in [`INSTALL.md`](INSTALL.md).
-
 ## FAQ
 
-### What does it take to self-host Rails E-Commerce Storefront?
+### What's the quickest way to self-host Rails E-Commerce Storefront?
 
-Everything you need ships in this repo: clone it, run `./install.sh` to install dependencies and seed demo data, then follow [`INSTALL.md`](INSTALL.md) to start it. No external services required.
+Pull the repo, run `./install.sh`, and you are up — the script installs packages and pre-seeds the database. [`INSTALL.md`](INSTALL.md) covers any platform-specific tweaks.
 
-### Is Rails E-Commerce Storefront free for commercial use?
+### Is there a no-code way to modify Rails E-Commerce Storefront?
 
-Yes. The code is Apache-2.0-licensed — use it, modify it, and ship it commercially. See [LICENSE](LICENSE).
+[cenius.ai](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront) handles the implementation. Tell it what you want in everyday words, pick up the updated build. No coding needed.
 
 ### How do I make Rails E-Commerce Storefront my own brand?
 
 Absolutely. [Open it on cenius.ai](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront) and remix it there — platform modifications come with full rebrand and relicense rights over your derivative, so the result is entirely yours.
 
-### Is there a no-code way to modify Rails E-Commerce Storefront?
-
-Open it on [cenius.ai](https://cenius.ai/marketplace/p/rails-e-commerce-storefront?ref=gh&utm_campaign=rails-e-commerce-storefront) and describe the changes you want in plain English — the platform modifies the app and gives you a new, downloadable build.
-
-### What is Rails E-Commerce Storefront built with?
+### Which framework or language does Rails E-Commerce Storefront use?
 
 Rails E-Commerce Storefront is a Ruby on Rails application — and this repository holds the complete, runnable source, not a stripped-down sample. Highlights include product Listing (Index Grid).
+
+### Is Rails E-Commerce Storefront free for commercial use?
+
+Confirmed free for commercial use — MIT terms let you incorporate, resell, or ship it in any product. [LICENSE](LICENSE).
 
 ## License & rebranding
 
