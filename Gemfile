@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 7.2.3", ">= 7.2.3.1"
+gem "rails", "~> 8.1.4"
 gem "propshaft"
 gem "sqlite3", ">= 1.4"
 gem "pg", "~> 1.5"
